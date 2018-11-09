@@ -9,15 +9,6 @@ sessionData = sessionData ? JSON.parse(sessionData) : {submissions: 0, email: fa
  *
  * - Only allow 3 email checks before asking for email
  */
-function checkSession() {
-  setTimeout(function () {
-    if (!sessionData.email && sessionData.submissions >= 3) {
-      $('#modal1').modal('open');
-    }
-  }, 2000);
-
-}
-
 /*
  * On email modal submit handler
  */
@@ -153,7 +144,6 @@ function onSubmit(e) {
 
     window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(sessionData));
 
-    checkSession();
   })
   .fail(function (err) {
 
@@ -187,7 +177,6 @@ function init() {
     }
   );
 
-  checkSession();
 }
 
 $(document).ready(init);
