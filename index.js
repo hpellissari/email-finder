@@ -37,6 +37,7 @@ app.post('/find', function(req, res) {
 
   var data = {
     name: req.body.first_name.trim() + ' ' + req.body.last_name.trim(),
+    middle_name: req.body.middle_name.trim(),
     domain: req.body.domain
   };
 

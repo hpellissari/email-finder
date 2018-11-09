@@ -5,11 +5,6 @@ var sessionData = window.localStorage.getItem(LOCAL_STORAGE_KEY);
 sessionData = sessionData ? JSON.parse(sessionData) : {submissions: 0, email: false};
 
 /*
- * Check session
- *
- * - Only allow 3 email checks before asking for email
- */
-/*
  * On email modal submit handler
  */
 function onEmailSubmit(e) {
@@ -70,7 +65,7 @@ function validate(data) {
   for (var key in data) {
     var input = $("input[name='" + key + "']");
 
-    if (!data[key]) {
+    if (!data[key] && key!='middle_name') {
       valid = false;
       input.addClass('invalid');
     }
