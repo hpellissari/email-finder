@@ -1,3 +1,4 @@
+var fs = require('fs');
 
 // Get sesssion data from localStorage
 var LOCAL_STORAGE_KEY = 'bp_session';
@@ -100,6 +101,7 @@ function buildData(form) {
 function onSubmit(e) {
   var loadingCover = $('.loading-cover');
   var result = $('#result');
+  var success = $('.success-form');
 
   e.preventDefault();
 
@@ -111,6 +113,7 @@ function onSubmit(e) {
   }
 
   // Show loading screen
+  success.removeClass('show');
   loadingCover.addClass('show');
 
   // Clear old result
@@ -132,10 +135,10 @@ function onSubmit(e) {
     loadingCover.removeClass('show');
 
     // Set result
-    $('#result').html('Success! The email is: ' + data.email);
+    $('#result').html('Success! The email is:');
+    success.addClass('show');
+    $('#success_field').val(data.email);
 
-    // Count the number of submissions
-    sessionData.submissions++;
 
     window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(sessionData));
 
@@ -151,6 +154,16 @@ function onSubmit(e) {
 
   return false;
 }
+
+function copyToClipboard(){
+   var copyText = document.getElementById("success_field");
+   copyText.select();
+   document.execCommand("copy");
+}
+
+
+
+
 
 /*
  * Initialize

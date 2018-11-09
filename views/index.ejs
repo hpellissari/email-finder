@@ -94,6 +94,10 @@
 
               <div class="row center">
                 <h5 id="result" class="header col s12 light"></h5>
+                    <div id="success" class="success-form">
+                        <input type="text" value="" id="success_field" class="btn waves-effect waves-light btn-small">
+                        <button class="btn waves-effect waves-light btn-small" onclick="copyToClipboard()">Copy e-mail</button>
+                    </div>
               </div>
             </div>
           </div>
@@ -126,15 +130,30 @@
                   </div>
 
                   <div class="row">
-                    <div class="col s12">
+                    <div class="col s6">
                       <button class="btn waves-effect waves-light btn-large" type="submit" name="action">Submit
                         <i class="material-icons right">send</i>
                       </button>
+                    </div>
+                   <div class="col s6">
+                      <form action="#">
+                        <div class="file-field input-field">
+                          <div class="btn">
+                            <span>Bulk</span>
+                            <input type="file">
+                          </div>
+                          <div class="file-path-wrapper">
+                            <input class="file-path" type="text" style="width: 0">
+                          </div>
+                        </div>
+                      </form>
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="input-field col s12">
+                    <p class="grey-text">For bulk search, the file should be in the following format: firstname,middlename,lastname,domain - even if middlename is blank</p>
+
                       <p class="grey-text">Note: The system works best for work domains and may have difficultly finding personal emails (Gmail, Yahoo, etc).</p>
                     </div>
                   </div>
