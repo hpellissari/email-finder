@@ -1,5 +1,3 @@
-var fs = require('fs');
-
 // Get sesssion data from localStorage
 var LOCAL_STORAGE_KEY = 'bp_session';
 var sessionData = window.localStorage.getItem(LOCAL_STORAGE_KEY);
