@@ -95,6 +95,9 @@
               <div class="row center">
                 <h5 id="result" class="header col s12 light"></h5>
                     <div id="success" class="success-form">
+                        <table id="single-result">
+
+                        </table>
                         <input type="text" value="" id="success_field" class="btn waves-effect waves-light btn-small">
                         <button class="btn waves-effect waves-light btn-small" onclick="copyToClipboard()">Copy e-mail</button>
                     </div>
@@ -136,11 +139,11 @@
                       </button>
                     </div>
                    <div class="col s6">
-                      <form action="#">
+                      <form action="fileupload">
                         <div class="file-field input-field">
                           <div class="btn">
-                            <span>Bulk</span>
-                            <input type="file">
+                            <span>Upload file</span>
+                            <input id="file-input" type="file" onClick="$(this).val('')" onchange="readFile()">
                           </div>
                           <div class="file-path-wrapper">
                             <input class="file-path" type="text" style="width: 0">
@@ -148,6 +151,11 @@
                         </div>
                       </form>
                     </div>
+                  </div>
+
+                  <div>
+                    <table id="results-table">
+                    </table>
                   </div>
 
                   <div class="row">

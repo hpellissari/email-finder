@@ -66,10 +66,12 @@ function createEmailsList(domain, firstname, lastname, middlename) {
 
                     // Kill the queue
                     q.kill();
-                    //quero chamar essa merda de função
-                    getDiscoverlyData(email).then(result);
-                    return resolve(result)
+                    getDiscoverlyData(email).then(data => {
+                        return resolve(data)
+                        }
 
+                    );
+                    // return resolve(result);
                 }
 
                 callback();
@@ -103,7 +105,8 @@ function createEmailsList(domain, firstname, lastname, middlename) {
 
 // getDiscoverlyData('mahidhar.akella@freshworks.com');
 
-async function getDiscoverlyData(email) {
+async function getDiscoverlyData(email, callback) {
+    //facebook_url - linkedin_url -  twitter_url - angellist_url - current_position - location - full_name
     url = "http://discover.ly/papi/v1/lookup?token=3bc448a0&url=mailto:" + email;
 
     result = {
@@ -117,22 +120,23 @@ async function getDiscoverlyData(email) {
         location: 'not found'
     };
 
-    await request(url, async function (error, response, body) {
+    // todo formate better the data to make it easier to diplayt it
+    await request(url, function (error, response, body) {
         data = JSON.parse(body);
-        //check how many credits are left and display message when credits = 00
-        creditsLeft = data["credits"];
-        fields = ["full_name","facebook_url","linkedin_url","twitter_url","angellist_url","current_position","location"];
-
-        for (var i = 0; i < data['result'].length; i++) {
-            r = data['result'][i];
-            for (var j = 0; j<fields.length; j++) {
-                if(r[fields[j]] !== undefined) {
-                    result[fields[j]] = r[fields[j]]
-                }
-            }
-        }
-        console.log(result);
-        return await result
+        return data
+        //     //check how many credits are left and display message when credits = 00
+        //     creditsLeft = data["credits"];
+        //     fields = ["full_name","facebook_url","linkedin_url","twitter_url","angellist_url","current_position","location"];
+        //     for (var i = 0; i < data['result'].length; i++) {
+        //         r = data['result'][i];
+        //         for (var j = 0; j<fields.length; j++) {
+        //             if(r[fields[j]] !== undefined) {
+        //                 result[fields[j]] = r[fields[j]]
+        //             }
+        //         }
+        //     }
+        //     console.log(result);
+        //     // return result
     });
 }
 
