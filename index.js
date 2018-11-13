@@ -34,10 +34,6 @@ app.get('/', function (req, res) {
 });
 //modifiquei o email-finder para enviar objetos dependendo do tipo de resultado - success qundo apenas um email é encontrado,
 //catchall e not-found são autoexplicativos.
-//getDiscoverlyData deve receber esse objeto, call the api para puxar os dados social media.
-//se houver dados disponiveis, deve retorna-los. Caso contrário, deve retornar o objeto que foi recebido.
-//usando request para efetuar request - vale a pena mudar para Axios?
-
 app.post('/find', function (req, res) {
     var data = {
         name: req.body.first_name.trim() + ' ' + req.body.last_name.trim(),
@@ -58,6 +54,15 @@ app.post('/find', function (req, res) {
 app.listen(app.get('port'), function () {
     console.log(`Server running at http://localhost:${app.get('port')}`);
 });
+
+//getDiscoverlyData deve receber esse objeto, call the api para puxar os dados social media.
+//se houver dados disponiveis, deve retorna-los. Caso contrário, deve retornar o objeto que foi recebido.
+//usando request para efetuar request - vale a pena mudar para Axios?
+//Essa função funciona bem quando o status do checker_object é "success", e só é necessário fazer uma única busca
+// Porém, nos status catchall e not-found, é recebido uma array de 5 emails ao invés de apenas um único. Qual seria
+// a maneira mais rápida pra se fazer isso? recursividade? ou simplesmente passamos sempre uma array de emails
+// (no caso, length == 1 para status success) e iteramos todas as vezes?
+//
 
 function getDiscoverlyData(checker_object) {
     url = "http://discover.ly/papi/v1/lookup?token=3bc448a0&url=mailto:" + checker_object.email;

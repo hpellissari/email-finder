@@ -3,6 +3,7 @@
 {{fi}}{{ln}}@{{domain}}
 {{fi}}.{{ln}}@{{domain}}
 {{fn}}{{ln}}@{{domain}}
+{{ln}}.{{fn}}@{{domain}}
 {{fn}}_{{ln}}@{{domain}}
 {{fi}}_{{ln}}@{{domain}}
 {{ln}}@{{domain}}
@@ -11,7 +12,6 @@
 {{fi}}{{li}}@{{domain}}
 {{fi}}.{{li}}@{{domain}}
 {{ln}}{{fn}}@{{domain}}
-{{ln}}.{{fn}}@{{domain}}
 {{ln}}{{fi}}@{{domain}}
 {{ln}}.{{fi}}@{{domain}}
 {{li}}{{fn}}@{{domain}}
@@ -44,7 +44,6 @@
 {{fi}}.{{mn}}@{{domain}}
 {{fi}}_{{mn}}@{{domain}}
 {{fi}}{{mn}}@{{domain}}
-{{fi}}.{{mi}}{{ln}}@{{domain}}
 {{fi}}_{{mi}}{{ln}}@{{domain}}
 {{fi}}-{{mi}}{{ln}}@{{domain}}
 {{fi}}{{mi}}{{li}}@{{domain}}
@@ -54,3 +53,9 @@
 {{fi}}-{{mi}}{{li}}@{{domain}}
 {{fn}}_{{mn}}{{ln}}@{{domain}}
 {{fn}}-{{mn}}{{ln}}@{{domain}}
+{{fn}}@{{domain}}
+{{fn}}.{{ln}}@{{domain}}
+{{fi}}.{{mn}}{{ln}}@{{domain}}
+{{fi}}.{{mi}}{{ln}}@{{domain}}
+{{fi}}{{mi}}{{ln}}@{{domain}}
+{{ln}}.{{fn}}@{{domain}}
