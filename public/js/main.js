@@ -109,7 +109,7 @@ function onSubmit(e) {
         .done(function (data) {
             $('#result').html('Success! The email is:');
             $('.success-form').addClass('show');
-            console.log(data)
+            console.log(data);
             $('#single-result').append('<tr><th>Name</th><th>' + data.email.full_name + '</th></tr>');
             $('#single-result').append('<tr><th>Email</th><th>' + data.email.email + '</th></tr>');
             $('#single-result').append('<tr><th>Twitter</th><th>' + data.email.twitter_url + '</th></tr>');
@@ -120,6 +120,7 @@ function onSubmit(e) {
             $('#single-result').append('<tr><th>Location</th><th>' + data.email.location + '</th></tr>');
         })
         .fail(function (data) {
+            console.log(data)
             $('#results-table').html('');
             $('#result').html('There was a problem finding the email.');
         })
@@ -141,7 +142,7 @@ function post(data, e) {
         url: "/find",
         method: "POST",
         data: JSON.stringify(data),
-        timeout: 20000,
+        timeout: 200000,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
     })
@@ -187,13 +188,13 @@ function readFile() {
                     if ($('#results-table').is(':empty')) {
                         $('#results-table').append('<tr><th>Name</th><th>Email Address</th>/tr>');
                     }
-                    $('#results-table tr:last').after('<tr><th>' + data.email.name + '</th><th>' + data.email.email + '</th></tr>');
+                    // $('#results-table tr:last').after('<tr><th>' + data.email.name + '</th><th>' + data.email.email + '</th></tr>');
                 })
                 .fail(function (data) {
                     if ($('#results-table').is(':empty')) {
                         $('#results-table').append('<tr><th>Name</th><th>Email Address</th>/tr>');
                     }
-                    $('#results-table tr:last').after('<tr><th>' + data.email.name + '</th><th>not found</th></tr>');
+                    // $('#results-table tr:last').after('<tr><th>' + data.email.name + '</th><th>not found</th></tr>');
                 });
             result.push(obj);
         }
