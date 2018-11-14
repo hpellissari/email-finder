@@ -110,14 +110,14 @@ function onSubmit(e) {
             $('#result').html('Success! The email is:');
             $('.success-form').addClass('show');
             console.log(data);
-            $('#single-result').append('<tr><th>Name</th><th>' + data.email.full_name + '</th></tr>');
-            $('#single-result').append('<tr><th>Email</th><th>' + data.email.email + '</th></tr>');
-            $('#single-result').append('<tr><th>Twitter</th><th>' + data.email.twitter_url + '</th></tr>');
-            $('#single-result').append('<tr><th>Facebook</th><th>' + data.email.facebook_url + '</th></tr>');
-            $('#single-result').append('<tr><th>Linkedin</th><th>' + data.email.linkedin_url + '</th></tr>');
-            $('#single-result').append('<tr><th>Angellist</th><th>' + data.email.angellist_url  + '</th></tr>');
-            $('#single-result').append('<tr><th>Current position</th><th>' + data.email.current_position + '</th></tr>');
-            $('#single-result').append('<tr><th>Location</th><th>' + data.email.location + '</th></tr>');
+            $('#single-result').append('<tr><th>Name</th><th>' + data.full_name + '</th></tr>');
+            $('#single-result').append('<tr><th>Email</th><th>' + data.email + '</th></tr>');
+            $('#single-result').append('<tr><th>Twitter</th><th>' + data.twitter_url + '</th></tr>');
+            $('#single-result').append('<tr><th>Facebook</th><th>' + data.facebook_url + '</th></tr>');
+            $('#single-result').append('<tr><th>Linkedin</th><th>' + data.linkedin_url + '</th></tr>');
+            $('#single-result').append('<tr><th>Angellist</th><th>' + data.angellist_url  + '</th></tr>');
+            $('#single-result').append('<tr><th>Current position</th><th>' + data.current_position + '</th></tr>');
+            $('#single-result').append('<tr><th>Location</th><th>' + data.location + '</th></tr>');
         })
         .fail(function (data) {
             console.log(data)
@@ -136,6 +136,7 @@ function post(data, e) {
 
     // Clear old result
     $('#result').html('');
+    $('#single-result').html('');
     $('#results-table').html('');
 
     return $.ajax({
@@ -182,13 +183,12 @@ function readFile() {
                 domain: currentline[3]
             };
 
-
             post(obj)
                 .done(function (data) {
                     if ($('#results-table').is(':empty')) {
-                        $('#results-table').append('<tr><th>Name</th><th>Email Address</th>/tr>');
+                        $('#results-table').append('<tr><th>Name</th><th>Email Address</th><th>Twitter</th><th>Facebook</th><th>Linkedin</th><th>Angelist</th><th>Current Position</th><th>Location</th>/tr>');
                     }
-                    // $('#results-table tr:last').after('<tr><th>' + data.email.name + '</th><th>' + data.email.email + '</th></tr>');
+                    $('#results-table tr:last').after('<tr><th>'+data.first_name +'</th><th>'+data.email+'</th><th>'+data.twitter_url+'</th><th>'+data.facebook_url+'</th><th>'+data.linkedin_url+'</th><th>'+data.angellist_url+'</th><th>'+data.current_position+'</th><th>'+data.location+'</th></tr>');
                 })
                 .fail(function (data) {
                     if ($('#results-table').is(':empty')) {
