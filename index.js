@@ -88,7 +88,7 @@ function getDiscoverlyData(checker_object) {
             location: 'not found'
         };
         url = "http://discover.ly/papi/v1/lookup?token=3bc448a0&url=mailto:" + checker_object.email;
-        request(url, async function (error, response, body) {
+        request(url, function (error, response, body) {
             if (error) return reject(error);
             try {
                 data = JSON.parse(body);
