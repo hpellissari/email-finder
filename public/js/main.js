@@ -188,7 +188,7 @@ function readFile() {
                     if ($('#results-table').is(':empty')) {
                         $('#results-table').append('<tr><th>Name</th><th>Email Address</th><th>Twitter</th><th>Facebook</th><th>Linkedin</th><th>Angelist</th><th>Current Position</th><th>Location</th>/tr>');
                     }
-                    $('#results-table tr:last').after('<tr><th>'+data.first_name +'</th><th>'+data.email+'</th><th>'+data.twitter_url+'</th><th>'+data.facebook_url+'</th><th>'+data.linkedin_url+'</th><th>'+data.angellist_url+'</th><th>'+data.current_position+'</th><th>'+data.location+'</th></tr>');
+                    $('#results-table tr:last').after('<tr><th>'+data.full_name +'</th><th>'+data.email+'</th><th>'+data.twitter_url+'</th><th>'+data.facebook_url+'</th><th>'+data.linkedin_url+'</th><th>'+data.angellist_url+'</th><th>'+data.current_position+'</th><th>'+data.location+'</th></tr>');
                 })
                 .fail(function (data) {
                     if ($('#results-table').is(':empty')) {

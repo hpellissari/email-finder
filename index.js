@@ -104,6 +104,10 @@ function getDiscoverlyData(checker_object) {
                     }
                 }
 
+                if(result.full_name == 'not found') {
+                    result.full_name = checker_object.first_name+' '+checker_object.middle_name+' '+checker_object.last_name
+                }
+
                 if (result.results_found > 0) {
                     resolve(result)
                 } else {
