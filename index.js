@@ -45,12 +45,12 @@ app.post('/find', function (req, res) {
             return email
             // res.send({email: email});
         })
-            .then(function (email) {
-                getDiscoverlyData(email)
-                    .then(function (result) {
-                        res.send(result)
-                     })
+        .then(function (email) {
+            getDiscoverlyData(email)
+                .then(function (result) {
+                    res.send(result)
                 })
+        })
 
         .catch(function (err) {
             res.status(500).send(err);
@@ -64,22 +64,69 @@ app.listen(app.get('port'), function () {
     console.log(`Server running at http://localhost:${app.get('port')}`);
 });
 
-//TODO IUterate getDiscoverlyData
-//getDiscoverlyData deve receber esse objeto, call the api para puxar os dados social media.
-//se houver dados disponiveis, deve retorna-los. Caso contrário, deve retornar o objeto que foi recebido.
-//usando request para efetuar request - vale a pena mudar para Axios?
-//Essa função funciona bem quando o status do checker_object é "success", e só é necessário fazer uma única busca
-// Porém, nos status catchall e not-found, é recebido uma array de 5 emails ao invés de apenas um único. Qual seria
-// a maneira mais rápida pra se fazer isso? recursividade? ou simplesmente passamos sempre uma array de emails
-// (no caso, length == 1 para status success) e iteramos todas as vezes?
-//
 
 function getDiscoverlyData(checker_object) {
+    return new Promise(function (resolve, reject) {
+
+        var promises = [];
+
+        for (k = 0; k < checker_object['email'].length; k++) {
+            url = "http://discover.ly/papi/v1/lookup?token=3bc448a0&url=mailto:" + checker_object.email[k];
+            console.log(url)
+            promises.push(request(url))
+        }
+
+        Promise.all(promises).then(function (data) {
+            console.log(data)
+            result = {
+                results_found: 0,
+                full_name: 'not found',
+                email: 'not found',
+                twitter_url: 'not found',
+                facebook_url: 'not found',
+                linkedin_url: 'not found',
+                angellist_url: 'not found',
+                current_position: 'not found',
+                location: 'not found'
+            };
+
+            for (k = 0; k < data.length; k++) {
+                json = JSON.parse(data[k]);
+                fields = ["full_name", "facebook_url", "linkedin_url", "twitter_url", "angellist_url", "current_position", "location"];
+                for (var i = 0; i < json['result'].length; i++) {
+                    r = json['result'][i];
+                    for (var j = 0; j < fields.length; j++) {
+                        if (r[fields[j]] !== undefined) {
+                            result[fields[j]] = r[fields[j]];
+                            result.results_found++;
+                        }
+                    }
+                }
+                if (result.results_found > 0) {
+                    result.email = checker_object.email[k];
+                    if (result.full_name === 'not found') {
+                        result.full_name = checker_object.first_name + ' ' + checker_object.middle_name + ' ' + checker_object.last_name
+                    }
+                    return resolve(result)
+                }
+            }
+            result.full_name = checker_object.full_name;
+            result.email = checker_object.email
+            return resolve(result)
+        })
+
+
+    })
+
+}
+
+
+function getSocialData(email) {
     return new Promise(function (resolve, reject) {
         result = {
             results_found: 0,
             full_name: 'not found',
-            email: checker_object.email,
+            email: 'not found',
             twitter_url: 'not found',
             facebook_url: 'not found',
             linkedin_url: 'not found',
@@ -87,14 +134,14 @@ function getDiscoverlyData(checker_object) {
             current_position: 'not found',
             location: 'not found'
         };
-        url = "http://discover.ly/papi/v1/lookup?token=3bc448a0&url=mailto:" + checker_object.email;
+        url = "http://discover.ly/papi/v1/lookup?token=3bc448a0&url=mailto:" + email.email;
         request(url, function (error, response, body) {
             if (error) return reject(error);
             try {
                 data = JSON.parse(body);
                 fields = ["full_name", "facebook_url", "linkedin_url", "twitter_url", "angellist_url", "current_position", "location"];
-
                 for (var i = 0; i < data['result'].length; i++) {
+                    console.log(i)
                     r = data['result'][i];
                     for (var j = 0; j < fields.length; j++) {
                         if (r[fields[j]] !== undefined) {
@@ -104,20 +151,78 @@ function getDiscoverlyData(checker_object) {
                     }
                 }
 
-                if(result.full_name == 'not found') {
-                    result.full_name = checker_object.first_name+' '+checker_object.middle_name+' '+checker_object.last_name
-                }
-
                 if (result.results_found > 0) {
+                    result.email = checker_object.email;
+                    if (result.full_name === 'not found') {
+                        result.full_name = checker_object.first_name + ' ' + checker_object.middle_name + ' ' + checker_object.last_name
+                    }
                     resolve(result)
-                } else {
-                    resolve(checker_object)
                 }
+                // else {
+                //     //change the values in the result object according to checker_object and return that one
+                //     resolve(checker_object)
+                // }
+
             } catch (e) {
                 reject(e)
             }
         });
     })
+
+
 }
+
+
+//=====================================
+//CAREFOUL HRE
+//=====================================
+
+
+// function getDiscoverlyData(checker_object) {
+//     return new Promise(function (resolve, reject) {
+//         result = {
+//             results_found: 0,
+//             full_name: 'not found',
+//             email: checker_object.email,
+//             twitter_url: 'not found',
+//             facebook_url: 'not found',
+//             linkedin_url: 'not found',
+//             angellist_url: 'not found',
+//             current_position: 'not found',
+//             location: 'not found'
+//         };
+//
+//         url = "http://discover.ly/papi/v1/lookup?token=3bc448a0&url=mailto:" + checker_object.email;
+//         request(url, function (error, response, body) {
+//             if (error) return reject(error);
+//             try {
+//                 data = JSON.parse(body);
+//                 fields = ["full_name", "facebook_url", "linkedin_url", "twitter_url", "angellist_url", "current_position", "location"];
+//
+//                 for (var i = 0; i < data['result'].length; i++) {
+//                     r = data['result'][i];
+//                     for (var j = 0; j < fields.length; j++) {
+//                         if (r[fields[j]] !== undefined) {
+//                             result[fields[j]] = r[fields[j]];
+//                             result.results_found++;
+//                         }
+//                     }
+//                 }
+//                 if(result.full_name == 'not found') {
+//                     result.full_name = checker_object.first_name+' '+checker_object.middle_name+' '+checker_object.last_name
+//                 }
+//
+//                 if (result.results_found > 0) {
+//                     resolve(result)
+//                 } else {
+//                     resolve(checker_object)
+//                 }
+//
+//             } catch (e) {
+//                 reject(e)
+//             }
+//         });
+//     })
+// }
 
 
