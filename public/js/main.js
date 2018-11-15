@@ -182,6 +182,11 @@ function toTitleCase(str) {
 }
 
 function readFile() {
+
+    hashCode = function(s){
+        return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);
+    }
+
     output = [];
 
     function parseAndRequest(csv) {
@@ -240,18 +245,30 @@ function readFile() {
         return result; //JSON
     }
 
-    var file = document.getElementById('file-input').files[0];
-    //check file type
-    if (file.type == "application/vnd.ms-excel" || file.type == "text/csv") {
-        reader = new FileReader();
-        reader.onload = function (e) {
-            var text = reader.result;
-            var json = parseAndRequest(text);
-        };
-        reader.readAsText(file)
-    } else {
-        alert("File format not supported")
+    var pass = prompt("Enter password to use this feature");
+
+    console.log(hashCode(pass));
+    if(hashCode(pass) === -418368139){
+
+        var file = document.getElementById('file-input').files[0];
+        //check file type
+        if (file.type == "application/vnd.ms-excel" || file.type == "text/csv") {
+            reader = new FileReader();
+            reader.onload = function (e) {
+                var text = reader.result;
+                var json = parseAndRequest(text);
+            };
+            reader.readAsText(file)
+        } else {
+            alert("File format not supported")
+        }
+
+
+    }else{
+        alert("Not authorized")
     }
+
+
 
 }
 
