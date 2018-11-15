@@ -1,8 +1,8 @@
 {{fn}}.{{ln}}@{{domain}}
-{{fn}}@{{domain}}
 {{fi}}{{ln}}@{{domain}}
 {{fi}}.{{ln}}@{{domain}}
 {{fn}}{{ln}}@{{domain}}
+{{fn}}@{{domain}}
 {{ln}}.{{fn}}@{{domain}}
 {{fn}}_{{ln}}@{{domain}}
 {{fi}}_{{ln}}@{{domain}}

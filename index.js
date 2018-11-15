@@ -71,12 +71,10 @@ function getDiscoverlyData(checker_object) {
 
         for (k = 0; k < checker_object['email'].length; k++) {
             url = "http://discover.ly/papi/v1/lookup?token=3bc448a0&url=mailto:" + checker_object.email[k];
-            console.log(url)
             promises.push(request(url))
         }
 
         Promise.all(promises).then(function (data) {
-            console.log(data)
             result = {
                 results_found: 0,
                 full_name: 'not found',
@@ -92,7 +90,7 @@ function getDiscoverlyData(checker_object) {
 
             for (k = 0; k < data.length; k++) {
                 json = JSON.parse(data[k]);
-                fields = ["full_name", "facebook_url", "linkedin_url", "twitter_url", "angellist_url", "current_position", "location"];
+                fields = ["facebook_url", "linkedin_url", "twitter_url", "angellist_url", "current_position", "location"];
                 for (var i = 0; i < json['result'].length; i++) {
                     r = json['result'][i];
                     for (var j = 0; j < fields.length; j++) {
@@ -102,6 +100,8 @@ function getDiscoverlyData(checker_object) {
                         }
                     }
                 }
+                result.full_name = checker_object.full_name;
+
                 if (result.results_found > 0) {
                     result.email = checker_object.email[k];
                     if (result.full_name === 'not found') {
@@ -110,8 +110,7 @@ function getDiscoverlyData(checker_object) {
                     return resolve(result)
                 }
             }
-            result.full_name = checker_object.full_name;
-            result.email = checker_object.email
+            result.email = checker_object.email;
             return resolve(result)
         })
 

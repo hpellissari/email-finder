@@ -12,6 +12,14 @@ nav ul a {
   color: rgba(0,0,0,0.87);
 }
 
+.fa {
+    margin: 10px;
+}
+
+.icons-bar {
+    font-size: 30px;
+}
+
 .logo {
   text-align: center;
   margin-top: 32px;

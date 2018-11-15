@@ -42,7 +42,7 @@
 
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/main.css">
 
     </head>
@@ -54,25 +54,7 @@
         <div class="content">
           <nav class="teal" role="navigation">
             <div class="nav-wrapper container">
-              <a id="logo-container" href="https://www.thebigpicture.io" target="_blank" class="brand-logo">
-                <img src="img/big-picture-logo-white.png" alt="Big Picture"/>
-              </a>
-              <ul class="right hide-on-med-and-down">
-                <li>
-                  <a class="btn" href="https://github.com/mfrye/email-finder" target="_blank">Get the code</a>
-                </li>
-              </ul>
 
-              <ul id="nav-mobile" class="side-nav">
-                <li class="logo">
-                  <a id="logo-container" href="https://www.thebigpicture.io" target="_blank">
-                    <img src="img/big-picture-logo-black.png" alt="Big Picture"/>
-                  </a>
-                </li>
-                <li><a href="https://github.com/mfrye/email-finder" target="_blank">Get the code</a></li>
-                <li><a href="https://www.thebigpicture.io" target="_blank">Learn more about Big Picture</a></li>
-              </ul>
-              <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
             </div>
           </nav>
 
@@ -83,26 +65,7 @@
                 <h1>Email Finder</h1>
 
                 <div class="row center">
-                  <h5 class="header col s12 light">Easily find any email address for free!</h5>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="section">
-            <div class="container">
-
-              <div class="row center">
-                <h5 id="result" class="header col s12 light"></h5>
-                    <div id="success" class="success-form">
-                        <table id="single-result">
-                        <thead>
-                        </thead>
-                        <tbody>
-                        </tbody>
-
-                        </table>
-                    </div>
               </div>
             </div>
           </div>
@@ -160,6 +123,27 @@
                     </table>
                   </div>
 
+                            <div class="section">
+            <div class="container">
+
+              <div class="row center">
+                <h5 id="result" class="header col s12 light"></h5>
+                    <div id="success" class="success-form">
+                        <table id="single-result">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        </table>
+                        <div class="icons-bar">
+                            <a href=>
+                        </div>
+                    </div>
+              </div>
+
+            </div>
+          </div>
+
                   <div class="row">
                     <div class="input-field col s12">
                     <p class="grey-text">For bulk search, the file should be in the following format: firstname,middlename,lastname,domain - even if middlename is blank</p>
@@ -208,36 +192,18 @@
           <div class="container">
             <div class="row">
               <div class="col l4 s12">
-                <h5 class="white-text">A Big Picture project</h5>
-                <p class="grey-text text-lighten-4">Big Picture is a web analytics platform that help you understand customer behavior and identify new leads.</p>
-                <a class="btn waves-effect waves-light lighten-3" target="_blank" href="https://www.thebigpicture.io">Learn more</a>
+
               </div>
               <div class="col l4 s12">
-                <h5 class="white-text">Free to use</h5>
-                <p class="grey-text text-lighten-4">This project is totally free to use. Fork and use it to build your own email finding app.</p>
-                <a class="btn waves-effect waves-light lighten-3" target="_blank" href="https://github.com/mfrye/email-finder">View on Github</a>
+
               </div>
               <div class="col l4 s12" style="overflow: hidden;">
-                <h5 class="white-text">Connect</h5>
-                <iframe src="https://ghbtns.com/github-btn.html?user=mfrye&amp;repo=email-finder&amp;type=watch&amp;count=true&amp;size=large" allowtransparency="true" frameborder="0" scrolling="0" width="170" height="30"></iframe>
-                <br>
-
-                <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-follow-button twitter-follow-button-rendered" title="Twitter Follow Button" src="https://platform.twitter.com/widgets/follow_button.3748f7cda49448f6c6f7854238570ba0.en.html#dnt=true&amp;id=twitter-widget-0&amp;lang=en&amp;screen_name=bigpicturebiz&amp;show_count=true&amp;show_screen_name=true&amp;size=l&amp;time=1481328793269" style="position: static; visibility: visible; width: 283px; height: 28px;" data-screen-name="BigPictureBiz"></iframe>
-
-                <br>
-
-                <!-- Place this tag in your head or just before your close body tag. -->
-                <script src="https://apis.google.com/js/platform.js" async defer></script>
-
-                <!-- Place this tag where you want the widget to render. -->
-                <div class="g-follow" data-annotation="bubble" data-height="24" data-href="https://plus.google.com/115692797722886463720" data-rel="publisher"></div>
+                <
               </div>
             </div>
           </div>
           <div class="footer-copyright">
             <div class="container">
-            © 2016 <a class="white-text text-lighten-3" target="_blank" href="https://www.thebigpicture.io">Big Picture</a>
-            <a class="grey-text text-lighten-4 right" href="https://github.com/mfrye/email-finder/blob/master/LICENSE">MIT License</a>
             </div>
           </div>
         </footer>
@@ -250,11 +216,5 @@
 
         <script src="js/main.js"></script>
 
-        <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-        <script>
-            window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
-            ga('create', '<%- GOOGLE_ANALYTICS_ID %>','auto');ga('send','pageview')
-        </script>
-        <script src="https://www.google-analytics.com/analytics.js" async defer></script>
     </body>
 </html>

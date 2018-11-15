@@ -107,17 +107,26 @@ function onSubmit(e) {
     }
     post(data, e)
         .done(function (data) {
-            $('#result').html('Success! The email is:');
+            console.log(data)
+            if(data.email.constructor === Array && data.email.length > 1){
+                 $('#result').html(' Not Sure! Most likely to be one among the following:');
+            }else{
+                $('#result').html('Success! The email is:');
+            }
             $('.success-form').addClass('show');
+
             $('#single-result').append('<tr><th>Name</th><td>' + data.full_name + '</td></tr>');
             $('#single-result').append('<tr><th>Email</th><td><input type="text" value="" id="success_field" class=""><button id="copy-button" class="btn waves-effect waves-light btn-small" onclick="copyToClipboard()">Copy e-mail</button></td><td></td></tr>');
             $('#success_field').val(data.email);
-            $('#single-result').append('<tr><th>Twitter</th><td>' + data.twitter_url + '</td></tr>');
-            $('#single-result').append('<tr><th>Facebook</th><td>' + data.facebook_url + '</td></tr>');
-            $('#single-result').append('<tr><th>Linkedin</th><td>' + data.linkedin_url + '</td></tr>');
-            $('#single-result').append('<tr><th>Angellist</th><td>' + data.angellist_url  + '</td></tr>');
+
+
             $('#single-result').append('<tr><th>Current position</th><td>' + data.current_position + '</td></tr>');
             $('#single-result').append('<tr><th>Location</th><td>' + data.location + '</td></tr>');
+            if(data.twitter_url !== 'not found')  $('.icons-bar').append('<a href="'+data.twitter_url+'" class="twitter"><i class="fa fa-twitter"></i></a>') ;
+            if(data.facebook_url !== 'not found') $('.icons-bar').append('<a href="'+data.facebook_url+'" class="facebook"><i class="fa fa-facebook"></i></a>');
+            if(data.linkedin_url !== 'not found') $('.icons-bar').append('<a href="'+data.linkedin_url+'" class="linkedin"><i class="fa fa-linkedin"></i></a>');
+            if(data.angellist_url !== 'not found') $('.icons-bar').append('<a href="'+data.angellist_url+'" class="angellist"><i class="fa fa-angellist"></i></a>');
+
         })
         .fail(function (data) {
             console.log(data)
@@ -138,6 +147,7 @@ function post(data, e) {
     $('#result').html('');
     $('#single-result').html('');
     $('#results-table').html('');
+    $('.icons-bar').html('');
 
     return $.ajax({
         url: "/find",
@@ -185,9 +195,9 @@ function readFile() {
             post(obj)
                 .done(function (data) {
                     if ($('#results-table').is(':empty')) {
-                        $('#results-table').append('<tr><th>Name</th><th>Email Address</th><th>Twitter</th><th>Facebook</th><th>Linkedin</th><th>Angelist</th><th>Current Position</th><th>Location</th>/tr>');
+                        $('#results-table').append('<tr><th>Name</th><th>Email Address</th></tr>');
                     }
-                    $('#results-table tr:last').after('<tr><th>'+data.full_name +'</th><th>'+data.email+'</th><th>'+data.twitter_url+'</th><th>'+data.facebook_url+'</th><th>'+data.linkedin_url+'</th><th>'+data.angellist_url+'</th><th>'+data.current_position+'</th><th>'+data.location+'</th></tr>');
+                    $('#results-table tr:last').after('<tr><th>'+data.full_name +'</th><th>'+data.email+'</th></tr>');
                 })
                 .fail(function (data) {
                     if ($('#results-table').is(':empty')) {
