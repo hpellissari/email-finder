@@ -122,10 +122,10 @@ function onSubmit(e) {
 
             $('#single-result').append('<tr><th>Current position</th><td>' + data.current_position + '</td></tr>');
             $('#single-result').append('<tr><th>Location</th><td>' + data.location + '</td></tr>');
-            if (data.twitter_url !== 'not found') $('.icons-bar').append('<a href="' + data.twitter_url + '" class="twitter"><i class="fa fa-twitter"></i></a>');
-            if (data.facebook_url !== 'not found') $('.icons-bar').append('<a href="' + data.facebook_url + '" class="facebook"><i class="fa fa-facebook"></i></a>');
-            if (data.linkedin_url !== 'not found') $('.icons-bar').append('<a href="' + data.linkedin_url + '" class="linkedin"><i class="fa fa-linkedin"></i></a>');
-            if (data.angellist_url !== 'not found') $('.icons-bar').append('<a href="' + data.angellist_url + '" class="angellist"><i class="fa fa-angellist"></i></a>');
+            if (data.twitter_url !== 'not found') $('.icons-bar').append('<a target="_blank" rel="noopener noreferrer" href="' + data.twitter_url + '" class="twitter"><i class="fa fa-twitter"></i></a>');
+            if (data.facebook_url !== 'not found') $('.icons-bar').append('<a target="_blank" rel="noopener noreferrer" href="' + data.facebook_url + '" class="facebook"><i class="fa fa-facebook"></i></a>');
+            if (data.linkedin_url !== 'not found') $('.icons-bar').append('<a target="_blank" rel="noopener noreferrer" href="' + data.linkedin_url + '" class="linkedin"><i class="fa fa-linkedin"></i></a>');
+            if (data.angellist_url !== 'not found') $('.icons-bar').append('<a target="_blank" rel="noopener noreferrer" href="' + data.angellist_url + '" class="angellist"><i class="fa fa-angellist"></i></a>');
 
         })
         .fail(function (data) {
