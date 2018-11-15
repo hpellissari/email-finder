@@ -18,6 +18,10 @@ nav ul a {
   margin-bottom: 40px;
 }
 
+#copy-button{
+    margin-left: 15px;
+}
+
 #email-form {
   position: relative;
 }
@@ -44,6 +48,10 @@ nav ul a {
 
 .success-form.show {
   display: block;
+}
+
+#success_field{
+    width: 230px;
 }
 
 .loading-cover {

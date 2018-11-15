@@ -109,15 +109,15 @@ function onSubmit(e) {
         .done(function (data) {
             $('#result').html('Success! The email is:');
             $('.success-form').addClass('show');
-            console.log(data);
-            $('#single-result').append('<tr><th>Name</th><th>' + data.full_name + '</th></tr>');
-            $('#single-result').append('<tr><th>Email</th><th>' + data.email + '</th></tr>');
-            $('#single-result').append('<tr><th>Twitter</th><th>' + data.twitter_url + '</th></tr>');
-            $('#single-result').append('<tr><th>Facebook</th><th>' + data.facebook_url + '</th></tr>');
-            $('#single-result').append('<tr><th>Linkedin</th><th>' + data.linkedin_url + '</th></tr>');
-            $('#single-result').append('<tr><th>Angellist</th><th>' + data.angellist_url  + '</th></tr>');
-            $('#single-result').append('<tr><th>Current position</th><th>' + data.current_position + '</th></tr>');
-            $('#single-result').append('<tr><th>Location</th><th>' + data.location + '</th></tr>');
+            $('#single-result').append('<tr><th>Name</th><td>' + data.full_name + '</td></tr>');
+            $('#single-result').append('<tr><th>Email</th><td><input type="text" value="" id="success_field" class=""><button id="copy-button" class="btn waves-effect waves-light btn-small" onclick="copyToClipboard()">Copy e-mail</button></td><td></td></tr>');
+            $('#success_field').val(data.email);
+            $('#single-result').append('<tr><th>Twitter</th><td>' + data.twitter_url + '</td></tr>');
+            $('#single-result').append('<tr><th>Facebook</th><td>' + data.facebook_url + '</td></tr>');
+            $('#single-result').append('<tr><th>Linkedin</th><td>' + data.linkedin_url + '</td></tr>');
+            $('#single-result').append('<tr><th>Angellist</th><td>' + data.angellist_url  + '</td></tr>');
+            $('#single-result').append('<tr><th>Current position</th><td>' + data.current_position + '</td></tr>');
+            $('#single-result').append('<tr><th>Location</th><td>' + data.location + '</td></tr>');
         })
         .fail(function (data) {
             console.log(data)
@@ -150,7 +150,6 @@ function post(data, e) {
         .done(function (data) {
             // Hide loading screen
             loadingCover.removeClass('show');
-
         })
         .fail(function (err) {
             // Hide loading screen

@@ -43,7 +43,6 @@ app.post('/find', function (req, res) {
     emailFinder(data)
         .then(function (email) {
             return email
-            // res.send({email: email});
         })
         .then(function (email) {
             getDiscoverlyData(email)
@@ -87,7 +86,8 @@ function getDiscoverlyData(checker_object) {
                 linkedin_url: 'not found',
                 angellist_url: 'not found',
                 current_position: 'not found',
-                location: 'not found'
+                location: 'not found',
+                index: 0
             };
 
             for (k = 0; k < data.length; k++) {
@@ -115,114 +115,5 @@ function getDiscoverlyData(checker_object) {
             return resolve(result)
         })
 
-
     })
-
 }
-
-
-function getSocialData(email) {
-    return new Promise(function (resolve, reject) {
-        result = {
-            results_found: 0,
-            full_name: 'not found',
-            email: 'not found',
-            twitter_url: 'not found',
-            facebook_url: 'not found',
-            linkedin_url: 'not found',
-            angellist_url: 'not found',
-            current_position: 'not found',
-            location: 'not found'
-        };
-        url = "http://discover.ly/papi/v1/lookup?token=3bc448a0&url=mailto:" + email.email;
-        request(url, function (error, response, body) {
-            if (error) return reject(error);
-            try {
-                data = JSON.parse(body);
-                fields = ["full_name", "facebook_url", "linkedin_url", "twitter_url", "angellist_url", "current_position", "location"];
-                for (var i = 0; i < data['result'].length; i++) {
-                    console.log(i)
-                    r = data['result'][i];
-                    for (var j = 0; j < fields.length; j++) {
-                        if (r[fields[j]] !== undefined) {
-                            result[fields[j]] = r[fields[j]];
-                            result.results_found++;
-                        }
-                    }
-                }
-
-                if (result.results_found > 0) {
-                    result.email = checker_object.email;
-                    if (result.full_name === 'not found') {
-                        result.full_name = checker_object.first_name + ' ' + checker_object.middle_name + ' ' + checker_object.last_name
-                    }
-                    resolve(result)
-                }
-                // else {
-                //     //change the values in the result object according to checker_object and return that one
-                //     resolve(checker_object)
-                // }
-
-            } catch (e) {
-                reject(e)
-            }
-        });
-    })
-
-
-}
-
-
-//=====================================
-//CAREFOUL HRE
-//=====================================
-
-
-// function getDiscoverlyData(checker_object) {
-//     return new Promise(function (resolve, reject) {
-//         result = {
-//             results_found: 0,
-//             full_name: 'not found',
-//             email: checker_object.email,
-//             twitter_url: 'not found',
-//             facebook_url: 'not found',
-//             linkedin_url: 'not found',
-//             angellist_url: 'not found',
-//             current_position: 'not found',
-//             location: 'not found'
-//         };
-//
-//         url = "http://discover.ly/papi/v1/lookup?token=3bc448a0&url=mailto:" + checker_object.email;
-//         request(url, function (error, response, body) {
-//             if (error) return reject(error);
-//             try {
-//                 data = JSON.parse(body);
-//                 fields = ["full_name", "facebook_url", "linkedin_url", "twitter_url", "angellist_url", "current_position", "location"];
-//
-//                 for (var i = 0; i < data['result'].length; i++) {
-//                     r = data['result'][i];
-//                     for (var j = 0; j < fields.length; j++) {
-//                         if (r[fields[j]] !== undefined) {
-//                             result[fields[j]] = r[fields[j]];
-//                             result.results_found++;
-//                         }
-//                     }
-//                 }
-//                 if(result.full_name == 'not found') {
-//                     result.full_name = checker_object.first_name+' '+checker_object.middle_name+' '+checker_object.last_name
-//                 }
-//
-//                 if (result.results_found > 0) {
-//                     resolve(result)
-//                 } else {
-//                     resolve(checker_object)
-//                 }
-//
-//             } catch (e) {
-//                 reject(e)
-//             }
-//         });
-//     })
-// }
-
-
