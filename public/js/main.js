@@ -201,10 +201,10 @@ function readFile() {
 
             post(obj)
                 .done(function (data) {
-                    if ($('#results-table').is(':empty')) {
-                        $('#results-table').append('<tr><th>Name</th><th>Email Address</th></tr>');
-                    }
-                    $('#results-table tr:last').after('<tr><th>' + toTitleCase(data.full_name) + '</th><th>' + data.email + '</th></tr>');
+                    // if ($('#results-table').is(':empty')) {
+                    //     $('#results-table').append('<tr><th>Name</th><th>Email Address</th></tr>');
+                    // }
+                    // $('#results-table tr:last').after('<tr><th>' + toTitleCase(data.full_name) + '</th><th>' + data.email + '</th></tr>');
 
                     console.log(output.length + "----" + lines.length - 1);
                     // output.push({name: data.full_name, email: data.email})
@@ -219,12 +219,13 @@ function readFile() {
                             csvContent += row + "\n";
                         });
                         var encodedUri = encodeURI(csvContent);
-                        var encodedUri = encodeURI(csvContent);
                         var link = document.createElement("a");
                         link.setAttribute("href", encodedUri);
                         link.setAttribute("download", "output.csv");
+                        link.textContent="Click here to download your results";
                         document.body.appendChild(link);
-                        link.click(); //
+                        $('#result-div').append(link);
+                        // link.click();
 
                     }
 
