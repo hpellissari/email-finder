@@ -108,24 +108,24 @@ function onSubmit(e) {
     post(data, e)
         .done(function (data) {
             console.log(data)
-            if(data.email.constructor === Array && data.email.length > 1){
-                 $('#result').html(' Not Sure! Most likely to be one among the following:');
-            }else{
+            if (data.email.constructor === Array && data.email.length > 1) {
+                $('#result').html(' Not Sure! Most likely to be one among the following:');
+            } else {
                 $('#result').html('Success! The email is:');
             }
             $('.success-form').addClass('show');
 
-            $('#single-result').append('<tr><th>Name</th><td>' + data.full_name + '</td></tr>');
+            $('#single-result').append('<tr><th>Name</th><td>' + toTitleCase(data.full_name) + '</td></tr>');
             $('#single-result').append('<tr><th>Email</th><td><input type="text" value="" id="success_field" class=""><button id="copy-button" class="btn waves-effect waves-light btn-small" onclick="copyToClipboard()">Copy e-mail</button></td><td></td></tr>');
             $('#success_field').val(data.email);
 
 
             $('#single-result').append('<tr><th>Current position</th><td>' + data.current_position + '</td></tr>');
             $('#single-result').append('<tr><th>Location</th><td>' + data.location + '</td></tr>');
-            if(data.twitter_url !== 'not found')  $('.icons-bar').append('<a href="'+data.twitter_url+'" class="twitter"><i class="fa fa-twitter"></i></a>') ;
-            if(data.facebook_url !== 'not found') $('.icons-bar').append('<a href="'+data.facebook_url+'" class="facebook"><i class="fa fa-facebook"></i></a>');
-            if(data.linkedin_url !== 'not found') $('.icons-bar').append('<a href="'+data.linkedin_url+'" class="linkedin"><i class="fa fa-linkedin"></i></a>');
-            if(data.angellist_url !== 'not found') $('.icons-bar').append('<a href="'+data.angellist_url+'" class="angellist"><i class="fa fa-angellist"></i></a>');
+            if (data.twitter_url !== 'not found') $('.icons-bar').append('<a href="' + data.twitter_url + '" class="twitter"><i class="fa fa-twitter"></i></a>');
+            if (data.facebook_url !== 'not found') $('.icons-bar').append('<a href="' + data.facebook_url + '" class="facebook"><i class="fa fa-facebook"></i></a>');
+            if (data.linkedin_url !== 'not found') $('.icons-bar').append('<a href="' + data.linkedin_url + '" class="linkedin"><i class="fa fa-linkedin"></i></a>');
+            if (data.angellist_url !== 'not found') $('.icons-bar').append('<a href="' + data.angellist_url + '" class="angellist"><i class="fa fa-angellist"></i></a>');
 
         })
         .fail(function (data) {
@@ -175,8 +175,14 @@ function copyToClipboard() {
     document.execCommand("copy");
 }
 
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+}
 
 function readFile() {
+    output = [];
 
     function parseAndRequest(csv) {
         csv = csv.replace(/(?:\\[rn]|[\r\n]+)+/g, '\n');
@@ -198,7 +204,30 @@ function readFile() {
                     if ($('#results-table').is(':empty')) {
                         $('#results-table').append('<tr><th>Name</th><th>Email Address</th></tr>');
                     }
-                    $('#results-table tr:last').after('<tr><th>'+data.full_name +'</th><th>'+data.email+'</th></tr>');
+                    $('#results-table tr:last').after('<tr><th>' + toTitleCase(data.full_name) + '</th><th>' + data.email + '</th></tr>');
+
+                    console.log(output.length + "----" + lines.length - 1);
+                    // output.push({name: data.full_name, email: data.email})
+                    output.push([data.full_name, data.email]);
+                    if (output.length === lines.length - 1) {
+                        console.log('finished');
+                        console.log(output);
+
+                        let csvContent = "data:text/csv;charset=utf-8,";
+                        output.forEach(function (rowArray) {
+                            let row = rowArray.join(",");
+                            csvContent += row + "\n";
+                        });
+                        var encodedUri = encodeURI(csvContent);
+                        var encodedUri = encodeURI(csvContent);
+                        var link = document.createElement("a");
+                        link.setAttribute("href", encodedUri);
+                        link.setAttribute("download", "output.csv");
+                        document.body.appendChild(link);
+                        link.click(); //
+
+                    }
+
                 })
                 .fail(function (data) {
                     if ($('#results-table').is(':empty')) {
