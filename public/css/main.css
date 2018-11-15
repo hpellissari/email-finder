@@ -37,6 +37,10 @@ nav ul a {
 #email-capture .email-input {
   margin-top: 40px;
 }
+#result-div {
+    font-size: 30px;
+    text-align: center;
+}
 
 /* Buttons */
 .btn-round {
