@@ -179,6 +179,7 @@ function copyToClipboard() {
 function readFile() {
 
     function parseAndRequest(csv) {
+        csv = csv.replace(/(?:\\[rn]|[\r\n]+)+/g, '\n');
         var lines = csv.split("\n");
         var result = [];
         for (var i = 1; i < lines.length; i++) {
@@ -203,7 +204,6 @@ function readFile() {
                     if ($('#results-table').is(':empty')) {
                         $('#results-table').append('<tr><th>Name</th><th>Email Address</th>/tr>');
                     }
-                    // $('#results-table tr:last').after('<tr><th>' + data.email.name + '</th><th>not found</th></tr>');
                 });
             result.push(obj);
         }
